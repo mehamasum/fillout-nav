@@ -4,13 +4,25 @@ interface PageNavProps {
   pages: Page[];
   currentPageId: Page['id'] | null;
   onPageSelection: (pageId: Page['id'] | null) => void;
+  onPageAdd: (pageName: Page['name']) => void;
 }
-
 function PageNav({
   pages,
   currentPageId,
-  onPageSelection
+  onPageSelection,
+  onPageAdd
 }: PageNavProps) {
+  const onAddPageClick = () => {
+    const pageName = prompt("Page name:");
+  
+    if (! pageName ) {
+      console.error("Page name is required");
+      return;
+    }
+  
+    onPageAdd(pageName);
+  }  
+
   return (
     <div>
       {
@@ -30,6 +42,17 @@ function PageNav({
           </button>
         ))
       }
+      <button
+        onClick={onAddPageClick}
+        style={{
+          margin: '5px',
+          padding: '10px',
+          border: '1px solid #000',
+          cursor: 'pointer'
+        }}
+      >
+        Add Page
+      </button>
     </div>
   );
 }

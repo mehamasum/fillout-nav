@@ -34,13 +34,30 @@ function FormBuilder() {
   
   const [currentPageId, setCurrentPageId] = useState<Page['id'] | null>(null);
 
+  const onPageAdd = (pageName: string) => {
+    if (!pageName) {
+      console.error("Page name is required");
+      return;
+    }
+
+    const newPage: Page = {
+      id: Math.random().toString(36).substring(2, 15), // Generate a random ID, will get it from backend later
+      name: pageName,
+      icon: 'page' // Default icon for new pages
+    };
+
+    setPages([...pages, newPage]);
+    setCurrentPageId(newPage.id);
+  }
+
   return (
     <div>
       <PageEditor currentPageId={currentPageId}/>
       <PageNav 
         currentPageId={currentPageId}
         onPageSelection={setCurrentPageId}
-        pages={pages}  
+        pages={pages}
+        onPageAdd={onPageAdd}
       />
     </div>
   );
