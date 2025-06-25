@@ -10,6 +10,7 @@ import type { Page } from '../FormBuilder';
 import './PageNavItem.css';
 
 interface PageNavItemProps {  
+  icon: React.ReactNode;
   pageName: Page['name'];
   active: boolean;
   onClick: () => void;
@@ -22,6 +23,7 @@ interface PageNavItemProps {
 }
 
 function PageNavItem({
+  icon,
   pageName,
   active,
   onClick,
@@ -43,14 +45,14 @@ function PageNavItem({
     <div
       onClick={onClick}
       onContextMenu={handleContextMenu}
-      className={`page-nav-item relative inline-block ${active ? 'active' : ''}`}
+      className={`page-nav-item cursor-pointer relative inline-flex items-center px-3 py-2 text-[#677289] leading-4 font-medium capitalize bg-[#9da4b226] rounded-md hover:bg-[#9da4b259] border border-solid border-0.5px border-[#E1E1E1] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm ${active ? 'active' : ''}`}
       draggable
       onDragStart={onDragStart}
       onDragEnter={onDragEnter}
       onDragEnd={onDragEnd}
       onDragOver={onDragOver}
     >
-      {pageName}
+      <span className="inline-flex gap-2 items-center">{icon} {pageName}</span>
 
       {active && <button 
           className="context-menu-trigger" 

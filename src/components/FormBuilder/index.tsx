@@ -2,12 +2,16 @@ import {useState} from 'react';
 import PageEditor from '../PageEditor';
 import PageNav from '../PageNav';
 
+import InfoIcon from '../common/icons/Info';
+import FileIcon from '../common/icons/File';
+import CheckIcon from '../common/icons/Check';
+
 import './index.css';
 
 export type Page = {  
   id: string;
   name: string;
-  icon: string;
+  icon: React.ReactNode;
 };
 
 function FormBuilder() {
@@ -15,22 +19,22 @@ function FormBuilder() {
     {
       id: '1',
       name: 'Info',
-      icon: 'info',
+      icon: <InfoIcon />,
     },
     {
       id: '2',
       name: 'Details',
-      icon: 'details',
+      icon: <FileIcon/>,
     },
     {
       id: '3',
       name: 'Others',
-      icon: 'more_horiz',
+      icon: <FileIcon/>,
     },
     {
       id: '4',
       name: 'Ending',
-      icon: 'check_circle',
+      icon: <CheckIcon/>,
     }
   ]);
   

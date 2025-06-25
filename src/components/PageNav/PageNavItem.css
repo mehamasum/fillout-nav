@@ -1,14 +1,10 @@
 .page-nav-item {
-  margin: 0.5rem;
-  padding: 0.5rem 1rem;
-  border: 1px solid #eee;
-  font-size: 1rem;
-  background-color: white;
-  cursor: pointer;
+  
 }
 
 .page-nav-item.active {
-  background-color: lightblue;
+  background-color: #fff;
+  color: #1a1a1a;
 }
 
 .context-menu-trigger {

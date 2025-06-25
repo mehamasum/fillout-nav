@@ -95,12 +95,13 @@ function PageNav({
   }, [openContextMenu]);
 
   return (
-    <div>
+    <div className="flex items-center">
       {
         pages.map((page, index) => {
           return (
               <span key={page.id}>
                 <PageNavItem
+                  icon={page.icon}
                   onClick={() => handlePageSelection(page.id)}
                   active={page.id === currentPageId}
                   pageName={page.name}
