@@ -61,7 +61,7 @@ function PageNavItem({
       }
 
       { contextMenuOpen && (
-        <div className="absolute right-0 z-100 w-48 py-2 mt-2 origin-top-right bg-white rounded-lg shadow-md">
+        <div className="absolute top-auto bottom-full left-0 z-100 w-48 py-2 mb-4 origin-bottom-left bg-white rounded-lg shadow-md">
           <div className="flex items-center px-3 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform hover:bg-gray-100 ">
             <FlagIcon/>
             <span className="mx-1">Set as first page</span>
