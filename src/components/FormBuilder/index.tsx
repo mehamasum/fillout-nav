@@ -34,7 +34,7 @@ function FormBuilder() {
   
   const [currentPageId, setCurrentPageId] = useState<Page['id'] | null>(null);
 
-  const onPageAdd = (pageName: string) => {
+  const onPageAdd = (pageName: string, pageIndex?: number) => {
     if (!pageName) {
       console.error("Page name is required");
       return;
@@ -46,7 +46,16 @@ function FormBuilder() {
       icon: 'page' // Default icon for new pages
     };
 
-    setPages([...pages, newPage]);
+    if (! pageIndex ) {
+      // Add the new page at the end of the list
+      setPages([...pages, newPage]);
+    } else {
+      // Insert the new page at the specified index
+      const updatedPages = [...pages];
+      updatedPages.splice(pageIndex, 0, newPage);
+      setPages(updatedPages);
+    }
+
     setCurrentPageId(newPage.id);
   }
 

@@ -1,9 +1,13 @@
 import type { Page } from '../FormBuilder';
+import PageNavItem from './PageNavItem';
+
+import './index.css';
+
 interface PageNavProps {  
   pages: Page[];
   currentPageId: Page['id'] | null;
   onPageSelection: (pageId: Page['id'] | null) => void;
-  onPageAdd: (pageName: Page['name']) => void;
+  onPageAdd: (pageName: Page['name'], pageIndex?: number) => void;
   onPageDrag: (draggedPageIndex: number, dragOverPageIndex: number) => void;
 }
 function PageNav({
@@ -16,15 +20,8 @@ function PageNav({
   let draggedPageIndex: number | null;
   let dragOverPageIndex: number | null;
 
-  const onAddPageClick = () => {
-    const pageName = prompt("Page name:");
-  
-    if (! pageName ) {
-      console.error("Page name is required");
-      return;
-    }
-  
-    onPageAdd(pageName);
+  const onAddPageClick = (pageIndex?: number) => {
+    onPageAdd("New Page", pageIndex);
   }
 
   const onDragStart = (index: number) => {
@@ -48,8 +45,7 @@ function PageNav({
     dragOverPageIndex = null;
   }
 
-  const onDragOver = (e: React.DragEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const onDragOver = () => {
     // todo: any logic to handle drag over?
   }
 
@@ -57,28 +53,25 @@ function PageNav({
     <div>
       {
         pages.map((page, index) => (
-          <button
-            key={page.id}
-            onClick={() => onPageSelection(page.id)}
-            style={{
-              backgroundColor: page.id === currentPageId ? 'lightblue' : 'white',
-              margin: '5px',
-              padding: '10px',
-              border: '1px solid #ccc',
-              cursor: 'pointer'
-            }}
-            draggable
-            onDragStart={() => (onDragStart(index))}
-            onDragEnter={() => (onDragEnter(index))}
-            onDragEnd={onDragEnd}
-            onDragOver={onDragOver}
-          >
-            {page.name}
-          </button>
+          <span key={page.id}>
+            <PageNavItem
+              onClick={() => onPageSelection(page.id)}
+              active={page.id === currentPageId}
+              pageName={page.name}
+              onDragStart={() => (onDragStart(index))}
+              onDragEnter={() => (onDragEnter(index))}
+              onDragEnd={onDragEnd}
+              onDragOver={onDragOver}
+            />
+            { index < pages.length - 1 && <span>
+              <hr className='page-separator'/>
+              <button className='page-separator-page-add' onClick={() => onAddPageClick(index+1)}>+</button>
+            </span> }
+          </span>
         ))
       }
       <button
-        onClick={onAddPageClick}
+        onClick={() => onAddPageClick()}
         style={{
           margin: '5px',
           padding: '10px',
