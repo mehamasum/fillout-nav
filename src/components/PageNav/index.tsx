@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { Page } from '../FormBuilder';
 import PageNavItem from './PageNavItem';
+import PlusIcon from '../common/icons/Plus';
 
 import './index.css';
 
@@ -117,16 +118,13 @@ function PageNav({
           );
         })
       }
-      <button
+      
+      <button 
+        className="inline-flex items-center px-3 py-2 text-black leading-4 font-medium capitalize bg-white rounded-md hover:bg-gray-50 border border-solid border-0.5px border-[#E1E1E1] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm"
         onClick={() => onAddPageClick()}
-        style={{
-          margin: '5px',
-          padding: '10px',
-          border: '1px solid #000',
-          cursor: 'pointer'
-        }}
       >
-        Add Page
+        <PlusIcon/>          
+        <span className="mx-1">Add Page</span>
       </button>
     </div>
   );
