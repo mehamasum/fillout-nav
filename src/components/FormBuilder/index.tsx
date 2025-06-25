@@ -49,7 +49,7 @@ function FormBuilder() {
     const newPage: Page = {
       id: Math.random().toString(36).substring(2, 15), // Generate a random ID, will get it from backend later
       name: pageName,
-      icon: 'page' // Default icon for new pages
+      icon: <FileIcon/> // Default icon for new pages
     };
 
     if (! pageIndex ) {
