@@ -50,6 +50,18 @@ function FormBuilder() {
     setCurrentPageId(newPage.id);
   }
 
+  const onPageDrag = (draggedPageIndex: number, dragOverPageIndex: number) => {
+    if (draggedPageIndex === null || dragOverPageIndex === null) {
+      return;
+    }
+
+    const updatedPages = [...pages];
+    const [draggedPage] = updatedPages.splice(draggedPageIndex, 1);
+    updatedPages.splice(dragOverPageIndex, 0, draggedPage); 
+
+    setPages(updatedPages);
+  }
+
   return (
     <div>
       <PageEditor currentPageId={currentPageId}/>
@@ -58,6 +70,7 @@ function FormBuilder() {
         onPageSelection={setCurrentPageId}
         pages={pages}
         onPageAdd={onPageAdd}
+        onPageDrag={onPageDrag}
       />
     </div>
   );
