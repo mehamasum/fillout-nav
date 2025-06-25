@@ -1,0 +1,12 @@
+.form-builder {
+  height: 100%;
+  width: 100%;
+}
+
+.form-builder .page-editor {
+  height: calc(100vh - 72px);
+}
+
+.form-builder .page-nav {
+  height: 72px;
+}

@@ -61,49 +61,33 @@ function PageNavItem({
       }
 
       { contextMenuOpen && (
-        <div className="absolute right-0 z-20 w-48 py-2 mt-2 origin-top-right bg-white rounded-lg shadow-xl">
-          <a href="#" className="flex items-center px-3 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform hover:bg-gray-100 ">
+        <div className="absolute right-0 z-100 w-48 py-2 mt-2 origin-top-right bg-white rounded-lg shadow-md">
+          <div className="flex items-center px-3 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform hover:bg-gray-100 ">
             <FlagIcon/>
+            <span className="mx-1">Set as first page</span>
+          </div>
 
-            <span className="mx-1">
-              Set as first page
-            </span>
-          </a>
+          <div className="flex items-center p-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform hover:bg-gray-100 ">
+            <PencilIcon/>
+            <span className="mx-1">Rename</span>
+          </div>
 
-          <a href="#" className="flex items-center p-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform hover:bg-gray-100 ">
-              <PencilIcon/>
+          <div className="flex items-center p-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform hover:bg-gray-100 ">
+            <ClipboardIcon/>
+            <span className="mx-1">Copy</span>
+          </div>
 
-              <span className="mx-1">
-                  Rename
-              </span>
-          </a>
-
-          <a href="#" className="flex items-center p-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform hover:bg-gray-100 ">
-              <ClipboardIcon/>
-
-              <span className="mx-1">
-                  Copy
-              </span>
-          </a>
-
-          <a href="#" className="flex items-center p-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform hover:bg-gray-100 ">
-              <DuplicateIcon/>
-
-              <span className="mx-1">
-                  Duplicate
-              </span>
-          </a>
+          <div className="flex items-center p-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform hover:bg-gray-100 ">
+            <DuplicateIcon/>
+            <span className="mx-1">Duplicate</span>
+          </div>
 
           <hr className="border-gray-200"/>
 
-          <a href="#" className="flex items-center p-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform hover:bg-gray-100 ">
-              <TrashcanIcon/>
-
-              <span className="mx-1">
-                  Delete
-              </span>
-          </a>
-
+          <div className="flex items-center p-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform hover:bg-gray-100 ">
+            <TrashcanIcon/>
+            <span className="mx-1">Delete</span>
+          </div>
         </div> 
      )}
     </div>

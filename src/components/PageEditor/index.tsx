@@ -8,8 +8,10 @@ function PageEditor({
   currentPageId
 }: PageEditorProps) {
   return (
-    <div>
-      {currentPageId ? `Editing Page: ${currentPageId}` : 'No page selected'}
+    <div className="h-full p-4 bg-gray-100">
+      <p className="text-sm text-gray-600 bg-white p-4 rounded">
+        {currentPageId ? `Editing Page: ${currentPageId}` : 'No page selected'}
+      </p>
     </div>
   );
 }

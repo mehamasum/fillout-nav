@@ -2,6 +2,8 @@ import {useState} from 'react';
 import PageEditor from '../PageEditor';
 import PageNav from '../PageNav';
 
+import './index.css';
+
 export type Page = {  
   id: string;
   name: string;
@@ -72,15 +74,20 @@ function FormBuilder() {
   }
 
   return (
-    <div>
-      <PageEditor currentPageId={currentPageId}/>
-      <PageNav 
-        currentPageId={currentPageId}
-        onPageSelection={setCurrentPageId}
-        pages={pages}
-        onPageAdd={onPageAdd}
-        onPageDrag={onPageDrag}
-      />
+    <div className="form-builder">
+      <div className="page-editor">
+        <PageEditor currentPageId={currentPageId}/>
+      </div>
+      <div className="page-nav flex align-center">
+        <PageNav
+          currentPageId={currentPageId}
+          onPageSelection={setCurrentPageId}
+          pages={pages}
+          onPageAdd={onPageAdd}
+          onPageDrag={onPageDrag}
+        />
+      </div>
+      
     </div>
   );
 }
