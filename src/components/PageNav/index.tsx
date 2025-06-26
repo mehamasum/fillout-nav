@@ -129,7 +129,13 @@ function PageNav({
   })
   const mouseSensor = useSensor(MouseSensor);
   const touchSensor = useSensor(TouchSensor);
-  const keyboardSensor = useSensor(KeyboardSensor);
+  const keyboardSensor = useSensor(KeyboardSensor, {
+    keyboardCodes: {
+      start: ['Space'],
+      cancel: ['Escape'],
+      end: ['Space']
+    }
+  });
 
   const sensors = useSensors(
     mouseSensor,
