@@ -1,6 +1,6 @@
 .page-separator-container {
   width: 20px;
-  height: 40px;
+  height: 32px;
   transition: width 0.3s ease;
 }
 
@@ -11,20 +11,7 @@
 .page-separator {
   height: 1px;
   border: 0;
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1.8px dashed #C0C0C0;
   padding: 0;
   width: 100%;
-}
-
-.page-separator-page-add {
-  width: 16px;
-  height: 16px;
-  font-size: 12px;
-  line-height: 16px;
-  text-align: center;
-  padding: 0;
-  border: 1px solid #ccc;
-  background-color: #fff;
-  cursor: pointer;
-  border-radius: 50%;
 }

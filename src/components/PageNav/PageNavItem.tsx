@@ -56,7 +56,7 @@ function PageNavItem({
       onContextMenu={handleContextMenu}
       className={
       `
-        page-nav-item relative inline-flex items-center px-3 py-2 leading-4 font-medium capitalize bg-[#9DA4B226] rounded-md hover:bg-[#9DA4B259] border border-solid border-0.5px border-[#E1E1E1] focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-blue-500 text-[#677289] 
+        page-nav-item relative inline-flex items-center px-2.5 py-1.5 leading-4 font-medium capitalize bg-[#9DA4B226] rounded-md hover:bg-[#9DA4B259] border border-solid border-0.5px border-[#E1E1E1] focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-blue-500 text-[#677289] 
         ${active ? 'bg-white text-fillout-dark hover:bg-white shadow-sm' : ''} 
         ${isDragging ? 'cursor-move' : 'cursor-pointer'}
       `
@@ -67,7 +67,7 @@ function PageNavItem({
       {active && <div 
           role="button"
           tabIndex={0}
-          className="context-menu-trigger ml-2 hover:bg-gray-100 cursor-pointer focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-blue-500" 
+          className="context-menu-trigger ml-2 hover:bg-gray-100 cursor-pointer focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-blue-500 rounded" 
           onClick={onContextMenuOpen}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
@@ -76,7 +76,7 @@ function PageNavItem({
             }
           }}
         >
-          <Kebab className="w-[16px] h-[16px]" />
+          <Kebab className="w-[18px] h-[18px] fill-fillout-gray-400" />
         </div>
       }
 
