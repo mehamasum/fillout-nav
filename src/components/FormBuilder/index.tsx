@@ -67,17 +67,30 @@ function FormBuilder() {
     setCurrentPageId(newPage.id);
   }
 
+  const onPageDragEnd = (activePageId: Page['id'], overPageId: Page['id']) => {
+    const activePageIndex = pages.findIndex(page => page.id === activePageId);
+    const overPageIndex = pages.findIndex(page => page.id === overPageId);
+
+    if (activePageIndex !== -1 && overPageIndex !== -1) {
+      const updatedPages = [...pages];
+      const [movedPage] = updatedPages.splice(activePageIndex, 1);
+      updatedPages.splice(overPageIndex, 0, movedPage);
+      setPages(updatedPages);
+    }
+  }
+
   return (
     <div className="form-builder font-inter text-sm font-medium text-fillout-dark">
       <div className="page-editor">
         <PageEditor currentPageId={currentPageId}/>
       </div>
-      <div className="page-nav flex align-center">
+      <div className="page-nav flex align-center overflow-x-auto">
         <PageNav
           currentPageId={currentPageId}
           onPageSelection={setCurrentPageId}
           pages={pages}
           onPageAdd={onPageAdd}
+          onPageDragEnd={onPageDragEnd}
         />
       </div>
       

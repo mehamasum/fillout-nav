@@ -4,7 +4,11 @@ import Kebab from '../common/icons/Kebab';
 import type { Page } from '../FormBuilder';
 import ContextMenu from './ContextMenu';
 
-interface PageNavItemProps {  
+import {useSortable} from '@dnd-kit/sortable';
+import {CSS} from '@dnd-kit/utilities';
+
+interface PageNavItemProps { 
+  pageId: Page['id']; 
   icon: React.ReactNode;
   pageName: Page['name'];
   active: boolean;
@@ -14,6 +18,7 @@ interface PageNavItemProps {
 }
 
 function PageNavItem({
+  pageId,
   icon,
   pageName,
   active,
@@ -21,6 +26,20 @@ function PageNavItem({
   contextMenuOpen,
   onContextMenuOpen,
 }: PageNavItemProps) {
+
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
+  } = useSortable({id: pageId});
+
+  const style = {
+    transform: CSS.Translate.toString(transform),
+    transition,
+  };
 
   const handleContextMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -32,9 +51,16 @@ function PageNavItem({
   return (
    <>
     <button
+      ref={setNodeRef} style={style} {...attributes} {...listeners}
       onClick={onClick}
       onContextMenu={handleContextMenu}
-      className={`page-nav-item cursor-pointer relative inline-flex items-center px-3 py-2 leading-4 font-medium capitalize bg-[#9DA4B226] rounded-md hover:bg-[#9DA4B259] border border-solid border-0.5px border-[#E1E1E1] focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-blue-500 text-[#677289] ${active ? 'bg-white text-fillout-dark hover:bg-white shadow-sm' : ''}`}
+      className={
+      `
+        page-nav-item relative inline-flex items-center px-3 py-2 leading-4 font-medium capitalize bg-[#9DA4B226] rounded-md hover:bg-[#9DA4B259] border border-solid border-0.5px border-[#E1E1E1] focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-blue-500 text-[#677289] 
+        ${active ? 'bg-white text-fillout-dark hover:bg-white shadow-sm' : ''} 
+        ${isDragging ? 'cursor-move' : 'cursor-pointer'}
+      `
+      }
     >
       <span className="inline-flex gap-1.5 items-center">{activeIcon} {pageName}</span>
 
