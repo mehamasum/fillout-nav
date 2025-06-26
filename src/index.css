@@ -11,4 +11,6 @@ html, body, #root {
   --color-fillout-dark: #1a1a1a;
   --color-fillout-danger: #EF494F;
   --color-fillout-gray-50: #FAFBFC;
+  --color-fillout-gray-400: #9DA4B2;
+  --color-fillout-yellow: #F59D0E;
 }

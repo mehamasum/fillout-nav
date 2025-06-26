@@ -18,25 +18,25 @@ export default function ContextMenu() {
           
           <div className="py-2">
             <ContextMenuItem
-              icon={<FlagIcon/>}
+              icon={<FlagIcon className="text-fillout-gray-400"/>}
               text="Set as first page"
               onClick={() => console.log('Set as first page clicked')}
             />
 
             <ContextMenuItem
-              icon={<PencilIcon/>}
+              icon={<PencilIcon className="text-fillout-gray-400"/>}
               text="Rename"
               onClick={() => console.log('Rename clicked')}
             /> 
 
             <ContextMenuItem
-              icon={<ClipboardIcon/>}
+              icon={<ClipboardIcon className="text-fillout-gray-400"/>}
               text="Copy"
               onClick={() => console.log('Copy clicked')}
             />
 
             <ContextMenuItem
-              icon={<DuplicateIcon/>}
+              icon={<DuplicateIcon className="text-fillout-gray-400"/>}
               text="Duplicate"
               onClick={() => console.log('Duplicate clicked')} 
             />
@@ -44,7 +44,7 @@ export default function ContextMenu() {
             <hr className="border-gray-200 mx-2 my-2"/>
 
             <ContextMenuItem
-              icon={<TrashcanIcon/>}
+              icon={<TrashcanIcon className="text-fillout-gray-400"/>}
               text="Delete"
               danger
               onClick={() => console.log('Delete clicked')}

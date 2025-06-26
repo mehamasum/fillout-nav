@@ -19,22 +19,22 @@ function FormBuilder() {
     {
       id: '1',
       name: 'Info',
-      icon: <InfoIcon />,
+      icon: <InfoIcon className="w-[20px] h-[20px]"/>,
     },
     {
       id: '2',
       name: 'Details',
-      icon: <FileIcon/>,
+      icon: <FileIcon className="w-[20px] h-[20px]"/>,
     },
     {
       id: '3',
       name: 'Others',
-      icon: <FileIcon/>,
+      icon: <FileIcon className="w-[20px] h-[20px]"/>,
     },
     {
       id: '4',
       name: 'Ending',
-      icon: <CheckIcon/>,
+      icon: <CheckIcon className="w-[20px] h-[20px]"/>,
     }
   ]);
   
@@ -49,7 +49,7 @@ function FormBuilder() {
     const newPage: Page = {
       id: Math.random().toString(36).substring(2, 15), // Generate a random ID, will get it from backend later
       name: pageName,
-      icon: <FileIcon/> // Default icon for new pages
+      icon: <FileIcon className="w-[20px] h-[20px]"/> // Default icon for new pages
     };
 
     if (! pageIndex ) {
