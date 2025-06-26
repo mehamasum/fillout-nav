@@ -1,6 +1,7 @@
 .page-separator-container {
   width: 20px;
   height: 40px;
+  transition: width 0.3s ease;
 }
 
 .page-separator-container-on-hover {
@@ -12,7 +13,6 @@
   border: 0;
   border-bottom: 1px dashed #ccc;
   padding: 0;
-  transition: width 0.3s ease;
   width: 100%;
 }
 
