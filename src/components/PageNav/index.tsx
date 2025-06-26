@@ -180,6 +180,8 @@ function PageNav({
                       >
                         <hr 
                           className='page-separator'
+                          aria-hidden="true"
+                          data-testid={`page-separator-${index}`}
                         />
                         { 
                           index < pages.length - 1 &&
@@ -187,6 +189,9 @@ function PageNav({
                           <button 
                             className="absolute top-1/2 -translate-y-1/2 right-1/2 translate-x-1/2 flex justify-center items-center w-4 h-4 bg-white hover:bg-gray-100 border border-solid border-0.5px border-[#E1E1E1] focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-blue-500 cursor-pointer shadow-sm rounded-[50%]" 
                             onClick={() => onAddPageClick(index+1)}
+                            aria-label="Add new page between pages"
+                            data-testid={`add-page-button-${index}`}
+                            title="Add new page between pages"
                           >
                             <PlusIcon className="w-[8px] h-[8px]"/>
                           </button>
@@ -204,6 +209,7 @@ function PageNav({
             icon={<PlusIcon className="w-[16px] h-[16px]"/>}
             text="Add Page"
             onClick={() => onAddPageClick()}
+            ariaLabel='Add new page at the end'
           />
       </div>
     </div>

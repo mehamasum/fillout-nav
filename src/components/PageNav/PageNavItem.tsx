@@ -27,6 +27,7 @@ function ContextMenuTrigger({
     <div 
       role="button"
       tabIndex={0}
+      aria-label='Open context menu'
       className="context-menu-trigger ml-2 hover:bg-gray-100 cursor-pointer focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-blue-500 rounded" 
       onClick={onContextMenuOpen}
       onKeyDown={(e) => {
@@ -87,6 +88,7 @@ function PageNavItem({
       `
       }
       data-testid="page-nav-item"
+      aria-label={`Page: ${pageName}`}
     >
       <span className="inline-flex gap-1.5 items-center">{activeIcon} {pageName}</span>
 

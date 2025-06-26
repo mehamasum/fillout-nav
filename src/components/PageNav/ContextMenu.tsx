@@ -9,14 +9,18 @@ import ContextMenuItem from './ContextMenuItem';
 
 export default function ContextMenu() {
   return (
-    <div className="context-menu-container absolute top-auto bottom-full left-0 z-100 w-60 mb-4 origin-bottom-left bg-white shadow-sm rounded-lg">
+    <div 
+      className="context-menu-container absolute top-auto bottom-full left-0 z-100 w-60 mb-4 origin-bottom-left bg-white shadow-lg border border-gray-200 rounded-lg"
+      role="menu"
+      aria-label="Page settings"
+    >
           <div className="flex items-center p-3 text-base capitalize bg-fillout-gray-50 cursor-default rounded-t-lg">
-            <span className="font-bold">Settings</span>
+            <span className="font-bold" role="heading" aria-level={3}>Settings</span>
           </div>
 
-          <hr className="border-gray-200"/>
+          <hr className="border-gray-200" aria-hidden="true"/>
           
-          <div className="p-2">
+          <div className="p-2" role="group" aria-label="Page actions">
             <ContextMenuItem
               icon={<FlagIcon className="text-fillout-gray-400"/>}
               text="Set as first page"
@@ -41,7 +45,7 @@ export default function ContextMenu() {
               onClick={() => console.log('Duplicate clicked')} 
             />
 
-            <hr className="border-gray-200 my-2"/>
+            <hr className="border-gray-200 my-2" aria-hidden="true"/>
 
             <ContextMenuItem
               icon={<TrashcanIcon className="text-fillout-gray-400"/>}

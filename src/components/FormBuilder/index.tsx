@@ -75,11 +75,11 @@ function FormBuilder() {
   }
 
   return (
-    <div className="h-full w-full font-inter text-sm font-medium text-fillout-dark">
+    <main className="h-full w-full font-inter text-sm font-medium text-fillout-dark">
       <div className="h-[calc(100vh-72px)]">
         <PageEditor currentPageId={currentPageId}/>
       </div>
-      <div className="h-[72px] flex align-center">
+      <nav className="h-[72px] flex align-center">
         <PageNav
           currentPageId={currentPageId}
           onPageSelection={setCurrentPageId}
@@ -87,9 +87,9 @@ function FormBuilder() {
           onPageAdd={onPageAdd}
           onPageDragEnd={onPageDragEnd}
         />
-      </div>
+      </nav>
       
-    </div>
+    </main>
   );
 }
 
