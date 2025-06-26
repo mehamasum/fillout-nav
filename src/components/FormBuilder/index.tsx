@@ -14,31 +14,33 @@ export type Page = {
   icon: React.ReactNode;
 };
 
+const DEFAULT_PAGES: Page[] = [
+  {
+    id: '1',
+    name: 'Info',
+    icon: <InfoIcon className="w-[20px] h-[20px]"/>,
+  },
+  {
+    id: '2',
+    name: 'Details',
+    icon: <FileIcon className="w-[20px] h-[20px]"/>,
+  },
+  {
+    id: '3',
+    name: 'Others',
+    icon: <FileIcon className="w-[20px] h-[20px]"/>,
+  },
+  {
+    id: '4',
+    name: 'Ending',
+    icon: <CheckIcon className="w-[20px] h-[20px]"/>,
+  }
+];
+
 function FormBuilder() {
-  const [pages, setPages] = useState<Page[]>([
-    {
-      id: '1',
-      name: 'Info',
-      icon: <InfoIcon className="w-[20px] h-[20px]"/>,
-    },
-    {
-      id: '2',
-      name: 'Details',
-      icon: <FileIcon className="w-[20px] h-[20px]"/>,
-    },
-    {
-      id: '3',
-      name: 'Others',
-      icon: <FileIcon className="w-[20px] h-[20px]"/>,
-    },
-    {
-      id: '4',
-      name: 'Ending',
-      icon: <CheckIcon className="w-[20px] h-[20px]"/>,
-    }
-  ]);
+  const [pages, setPages] = useState<Page[]>(DEFAULT_PAGES);
   
-  const [currentPageId, setCurrentPageId] = useState<Page['id'] | null>(null);
+  const [currentPageId, setCurrentPageId] = useState<Page['id'] | null>(DEFAULT_PAGES[0].id);
 
   const onPageAdd = (pageName: string, pageIndex?: number) => {
     if (!pageName) {
