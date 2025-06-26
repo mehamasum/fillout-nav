@@ -16,7 +16,7 @@ export default function ContextMenu() {
 
           <hr className="border-gray-200"/>
           
-          <div className="py-2">
+          <div className="p-2">
             <ContextMenuItem
               icon={<FlagIcon className="text-fillout-gray-400"/>}
               text="Set as first page"
@@ -41,7 +41,7 @@ export default function ContextMenu() {
               onClick={() => console.log('Duplicate clicked')} 
             />
 
-            <hr className="border-gray-200 mx-2 my-2"/>
+            <hr className="border-gray-200 my-2"/>
 
             <ContextMenuItem
               icon={<TrashcanIcon className="text-fillout-gray-400"/>}
