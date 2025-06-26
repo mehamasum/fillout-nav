@@ -78,7 +78,7 @@ function FormBuilder() {
   }
 
   return (
-    <div className="form-builder">
+    <div className="form-builder font-inter text-sm font-medium text-fillout-dark">
       <div className="page-editor">
         <PageEditor currentPageId={currentPageId}/>
       </div>

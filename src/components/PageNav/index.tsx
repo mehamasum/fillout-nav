@@ -33,6 +33,8 @@ function PageNav({
   const onDragStart = (index: number) => {
     draggedPageIndex = index;
     dragOverPageIndex = null;
+
+    setOpenContextMenu(null); // Close context menu on drag start
   }
 
   const onDragEnter = (index: number) => {
