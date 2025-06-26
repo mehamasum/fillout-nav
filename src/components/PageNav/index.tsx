@@ -11,50 +11,18 @@ interface PageNavProps {
   currentPageId: Page['id'] | null; // todo: rename to activePageId
   onPageSelection: (pageId: Page['id'] | null) => void;
   onPageAdd: (pageName: Page['name'], pageIndex?: number) => void;
-  onPageDrag: (draggedPageIndex: number, dragOverPageIndex: number) => void;
 }
 function PageNav({
   pages,
   currentPageId,
   onPageSelection,
   onPageAdd,
-  onPageDrag,
 }: PageNavProps) {
   const [openContextMenu, setOpenContextMenu] = useState<Page['id'] | null>(null);
   const [ hoveredPageIndex, setHoveredPageIndex ] = useState<number | null>(null);
 
-  let draggedPageIndex: number | null;
-  let dragOverPageIndex: number | null;
-
   const onAddPageClick = (pageIndex?: number) => {
     onPageAdd("New Page", pageIndex);
-  }
-
-  const onDragStart = (index: number) => {
-    draggedPageIndex = index;
-    dragOverPageIndex = null;
-
-    setOpenContextMenu(null); // Close context menu on drag start
-  }
-
-  const onDragEnter = (index: number) => {
-    dragOverPageIndex = index;
-  }
-
-  const onDragEnd = () => {
-    if (draggedPageIndex === null || dragOverPageIndex === null) {
-      return;
-    }
-
-    onPageDrag(draggedPageIndex, dragOverPageIndex);
-
-
-    draggedPageIndex = null;
-    dragOverPageIndex = null;
-  }
-
-  const onDragOver = () => {
-    // todo: any logic to handle drag over?
   }
 
   const handlePageSelection = (pageId: Page['id']) => {
@@ -117,10 +85,6 @@ function PageNav({
                     onClick={() => handlePageSelection(page.id)}
                     active={page.id === currentPageId}
                     pageName={page.name}
-                    onDragStart={() => (onDragStart(index))}
-                    onDragEnter={() => (onDragEnter(index))}
-                    onDragEnd={onDragEnd}
-                    onDragOver={onDragOver}
                     contextMenuOpen={openContextMenu === page.id}
                     onContextMenuOpen={() => handleContextMenuOpen(page.id)}
                     
@@ -153,10 +117,10 @@ function PageNav({
       </>
       <div>
           <Button
-          icon={<PlusIcon/>}
-          text="Add Page"
-          onClick={() => onAddPageClick()}
-        />
+            icon={<PlusIcon className="w-[16px] h-[16px]"/>}
+            text="Add Page"
+            onClick={() => onAddPageClick()}
+          />
       </div>
     </div>
   );
