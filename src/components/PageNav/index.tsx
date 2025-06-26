@@ -199,7 +199,7 @@ function PageNav({
           }
         </SortableContext>
       </DndContext>
-      <div>
+      <div data-testid="add-page-button">
           <Button
             icon={<PlusIcon className="w-[16px] h-[16px]"/>}
             text="Add Page"

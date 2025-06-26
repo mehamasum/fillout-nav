@@ -86,6 +86,7 @@ function PageNavItem({
         transition-colors duration-100 ease-in-out
       `
       }
+      data-testid="page-nav-item"
     >
       <span className="inline-flex gap-1.5 items-center">{activeIcon} {pageName}</span>
 
