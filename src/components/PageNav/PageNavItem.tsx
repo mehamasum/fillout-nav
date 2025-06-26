@@ -30,17 +30,17 @@ function PageNavItem({
   onContextMenuOpen,
 }: PageNavItemProps) {
 
-  const handleContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleContextMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     onContextMenuOpen();
   };
 
   return (
    <>
-    <div
+    <button
       onClick={onClick}
       onContextMenu={handleContextMenu}
-      className={`page-nav-item cursor-pointer relative inline-flex items-center px-3 py-2 leading-4 font-medium capitalize bg-[#9da4b226] rounded-md hover:bg-[#9da4b259] border border-solid border-0.5px border-[#E1E1E1] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm text-[#677289] ${active ? 'bg-white text-fillout-dark hover:bg-gray-100' : ''}`}
+      className={`page-nav-item cursor-pointer relative inline-flex items-center px-3 py-2 leading-4 font-medium capitalize bg-[#9da4b226] rounded-md hover:bg-[#9da4b259] border border-solid border-0.5px border-[#E1E1E1] focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-blue-500 text-[#677289] ${active ? 'bg-white text-fillout-dark hover:bg-white shadow-sm' : ''}`}
       draggable
       onDragStart={onDragStart}
       onDragEnter={onDragEnter}
@@ -50,7 +50,7 @@ function PageNavItem({
       <span className="inline-flex gap-1.5 items-center">{icon} {pageName}</span>
 
       {active && <button 
-          className="context-menu-trigger ml-2 hover:bg-gray-100 cursor-pointer" 
+          className="context-menu-trigger ml-2 hover:bg-gray-100 cursor-pointer focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-blue-500" 
           onClick={onContextMenuOpen}
         >
           <KebabIcon/>
@@ -58,7 +58,7 @@ function PageNavItem({
       }
 
       { contextMenuOpen && <ContextMenu/> }
-    </div>
+    </button>
    </>
   );
 }
