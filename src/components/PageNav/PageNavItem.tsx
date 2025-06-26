@@ -1,4 +1,6 @@
 
+import { useMemo, useState } from 'react';
+import isFeatureFlagEnabled from '../../utils/feature-flag';
 import Kebab from '../common/icons/Kebab';
 
 import type { Page } from '../FormBuilder';
@@ -19,8 +21,10 @@ interface PageNavItemProps {
 
 
 function ContextMenuTrigger({
+  isParentActive,
   onContextMenuOpen,
 }: {
+  isParentActive: boolean;
   onContextMenuOpen: () => void;
 }) {
   return (
@@ -28,8 +32,14 @@ function ContextMenuTrigger({
       role="button"
       tabIndex={0}
       aria-label='Open context menu'
-      className="context-menu-trigger ml-2 hover:bg-gray-100 cursor-pointer focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-blue-500 rounded" 
-      onClick={onContextMenuOpen}
+      className={`
+        context-menu-trigger ml-2 cursor-pointer focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-blue-500 rounded
+        ${isParentActive ? 'hover:bg-gray-100' : 'hover:bg-[#9DA4B259]'}
+      `}
+      onClick={(e) => {
+        e.stopPropagation();
+        onContextMenuOpen();
+      }}
       onKeyDown={(e) => {
         if (e.key === 'Enter') {
           e.preventDefault();
@@ -51,6 +61,11 @@ function PageNavItem({
   contextMenuOpen,
   onContextMenuOpen,
 }: PageNavItemProps) {
+  const [isHovering, setIsHovering] = useState(false);
+
+  const isContextMenuOnHoverEnabled = useMemo(() => {
+    return isFeatureFlagEnabled('contextMenuOnHover', false);
+  }, []);
 
   const {
     attributes,
@@ -73,6 +88,8 @@ function PageNavItem({
 
   const activeIcon = active ? <span className="text-fillout-yellow">{icon}</span> : icon;
 
+  const shouldShowContextMenu = active || (isContextMenuOnHoverEnabled && isHovering && !active);
+
   return (
    <>
     <button
@@ -89,10 +106,12 @@ function PageNavItem({
       }
       data-testid="page-nav-item"
       aria-label={`Page: ${pageName}`}
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
     >
       <span className="inline-flex gap-1.5 items-center">{activeIcon} {pageName}</span>
 
-      {active && <ContextMenuTrigger onContextMenuOpen={onContextMenuOpen} />}
+      {shouldShowContextMenu && <ContextMenuTrigger isParentActive={active} onContextMenuOpen={onContextMenuOpen} />}
 
       { contextMenuOpen && <ContextMenu/> }
     </button>
