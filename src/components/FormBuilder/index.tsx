@@ -6,8 +6,6 @@ import InfoIcon from '../common/icons/Info';
 import FileIcon from '../common/icons/File';
 import CheckIcon from '../common/icons/Check';
 
-import './index.css';
-
 export type Page = {  
   id: string;
   name: string;
@@ -80,11 +78,11 @@ function FormBuilder() {
   }
 
   return (
-    <div className="form-builder font-inter text-sm font-medium text-fillout-dark">
-      <div className="page-editor">
+    <div className="h-full w-full font-inter text-sm font-medium text-fillout-dark">
+      <div className="h-[calc(100vh-72px)]">
         <PageEditor currentPageId={currentPageId}/>
       </div>
-      <div className="page-nav flex align-center">
+      <div className="h-[72px] flex align-center">
         <PageNav
           currentPageId={currentPageId}
           onPageSelection={setCurrentPageId}
