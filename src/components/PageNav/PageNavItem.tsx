@@ -56,6 +56,12 @@ function PageNavItem({
           tabIndex={0}
           className="context-menu-trigger ml-2 hover:bg-gray-100 cursor-pointer focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-blue-500" 
           onClick={onContextMenuOpen}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              onContextMenuOpen();
+            }
+          }}
         >
           <Kebab className="w-[16px] h-[16px]" />
         </div>
