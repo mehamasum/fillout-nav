@@ -84,7 +84,7 @@ function FormBuilder() {
       <div className="page-editor">
         <PageEditor currentPageId={currentPageId}/>
       </div>
-      <div className="page-nav flex align-center overflow-x-auto">
+      <div className="page-nav flex align-center">
         <PageNav
           currentPageId={currentPageId}
           onPageSelection={setCurrentPageId}
