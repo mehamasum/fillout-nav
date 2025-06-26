@@ -40,11 +40,8 @@ function FormBuilder() {
   
   const [currentPageId, setCurrentPageId] = useState<Page['id'] | null>(DEFAULT_PAGES[0].id);
 
-  const onPageAdd = (pageName: string, pageIndex?: number) => {
-    if (!pageName) {
-      console.error("Page name is required");
-      return;
-    }
+  const onPageAdd = (pageIndex?: number) => {
+    const pageName = `Page ${pages.length + 1}`; // Default name for new pages
 
     const newPage: Page = {
       id: Math.random().toString(36).substring(2, 15), // Generate a random ID, will get it from backend later

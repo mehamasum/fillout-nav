@@ -27,7 +27,7 @@ interface PageNavProps {
   pages: Page[];
   currentPageId: Page['id'] | null; // todo: rename to activePageId
   onPageSelection: (pageId: Page['id'] | null) => void;
-  onPageAdd: (pageName: Page['name'], pageIndex?: number) => void;
+  onPageAdd: (pageIndex?: number) => void;
   onPageDragEnd: (activePageId: Page['id'], overPageId: Page['id']) => void;
 }
 function PageNav({
@@ -42,7 +42,7 @@ function PageNav({
   const [ draggedPageId, setDraggedPageId ] = useState<Page['id'] | null>(null);
 
   const onAddPageClick = (pageIndex?: number) => {
-    onPageAdd("New Page", pageIndex);
+    onPageAdd(pageIndex);
   }
 
   const handlePageSelection = (pageId: Page['id']) => {
