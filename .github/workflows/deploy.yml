@@ -1,5 +1,4 @@
-name: Publish via GitHub Pages
-
+name: build-gh-pages-branch
 on:
   push:
     branches:
@@ -14,7 +13,7 @@ jobs:
         with:
           node-version: '22'
       - run: npm install
-      - run: npm run build
+      - run: npm run build -- --base=/fillout-nav/
       - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
