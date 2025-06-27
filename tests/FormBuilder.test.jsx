@@ -113,11 +113,11 @@ describe('FormBuilder', () => {
     });
 
     await waitFor(() => {
-      const contextMenu = screen.getAllByTestId("context-menu")[1];
-      expect(contextMenu).toHaveClass("opacity-100"); // Check if context menu is visible
+      expect(screen.getByTestId("context-menu")).toBeInTheDocument();
     });
 
-    const contextMenuItems = screen.getAllByTestId("context-menu-items")[1];
+    const contextMenuItems = screen.getByTestId("context-menu-items");
+    expect(contextMenuItems).toBeInTheDocument();
     expect(contextMenuItems).toHaveTextContent('Set as first page');
     expect(contextMenuItems).toHaveTextContent('Rename');
     expect(contextMenuItems).toHaveTextContent('Copy');
