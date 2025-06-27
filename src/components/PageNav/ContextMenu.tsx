@@ -81,6 +81,28 @@ export default function ContextMenu({
     };
   }, [onClose]);
 
+  // Close context menu on click outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const element = event.target as HTMLElement;
+
+      // Skip if the click is to trigger the context menu
+      if (element.closest('.context-menu-trigger')) {
+        return;
+      }
+
+      // Close the context menu if the click is outside of it's container
+      if (!element.closest('.context-menu-container')) {
+        onClose();
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [onClose]);
+
   return (
     <div 
       ref={menuRef}

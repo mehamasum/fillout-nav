@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import type { Page } from '../FormBuilder';
 import NavItem from './NavItem';
 import PlusIcon from '../common/icons/Plus';
@@ -58,31 +58,6 @@ function PageNav({
       setOpenContextMenu(pageId);
     }
   }
-
-  // Close context menu on click outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (openContextMenu) {
-        const element = event.target as HTMLElement;
-
-        // Skip if the click is to trigger the context menu
-        if (element.closest('.context-menu-trigger')) {
-          return;
-        }
-
-        // Close the context menu if the click is outside of it's container
-        if (!element.closest('.context-menu-container')) {
-          setOpenContextMenu(null);
-        }
-      }
-    };
-
-    document.addEventListener('click', handleClickOutside);
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, [openContextMenu]);
-
 
   const handleDragStart = (e: DragStartEvent) => {
     const { active } = e;
@@ -168,12 +143,12 @@ function PageNav({
         </SortableContext>
       </DndContext>
       <div data-testid="add-page-button">
-          <Button
-            icon={<PlusIcon className="w-[16px] h-[16px]"/>}
-            text="Add Page"
-            onClick={() => onAddPageClick()}
-            ariaLabel='Add new page at the end'
-          />
+        <Button
+          icon={<PlusIcon className="w-[16px] h-[16px]"/>}
+          text="Add Page"
+          onClick={() => onAddPageClick()}
+          ariaLabel='Add new page at the end'
+        />
       </div>
     </div>
   );
