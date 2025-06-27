@@ -16,6 +16,8 @@ export default function NavItemSeparator({
   draggedPageId: Page['id'] | null;
 }) {
   const [ hoveredPageIndex, setHoveredPageIndex ] = useState<number | null>(null);
+
+  let delayedHoverTimeout: number | null = null;
   
   const handleMouseHoverOnSeparator = (index: number) => {
     // Skip if dragging
@@ -27,8 +29,18 @@ export default function NavItemSeparator({
     if (index === totalPages - 1) {
       return;
     }
-    setHoveredPageIndex(index);
+
+    delayedHoverTimeout = setTimeout(() => {
+        setHoveredPageIndex(index);
+    }, 200);
   }
+
+  const handleMouseLeave = () => {
+    if (delayedHoverTimeout) {
+      clearTimeout(delayedHoverTimeout);
+    }
+    setHoveredPageIndex(null);
+  };
   
   return (
     <>
@@ -40,7 +52,7 @@ export default function NavItemSeparator({
         `}
         style={{ transition: 'width 0.3s ease' }}
         onMouseEnter={() => handleMouseHoverOnSeparator(index)}
-        onMouseLeave={() => setHoveredPageIndex(null)}
+        onMouseLeave={() => handleMouseLeave()}
       >
         <hr 
           className="h-[1px] w-full p-0 border-0 border-b-[1.8px] border-dashed border-[#C0C0C0]"
