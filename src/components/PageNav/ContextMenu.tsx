@@ -21,13 +21,18 @@ const CONTEXT_MENU_ITEMS = [
 const menuLength =  CONTEXT_MENU_ITEMS.length;
 
 export default function ContextMenu({
+  trapFocus = false,
   onClose,
 }: {
+  trapFocus?: boolean;
   onClose: () => void;
 }) {
   const menuRef = useRef<HTMLDivElement>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [focusedIndex, setFocusedIndex] = useState(0);
+  /* eslint-disable @typescript-eslint/no-unused-vars */
+  // @ts-expect-error We are not using this state directly
+  const [focusedIndex, setFocusedIndex] = useState(0); 
+
+  const lastFocusedElement = useRef<HTMLElement | null>(null);
 
   const focusItem = (index: number) => {
     const menuItem = menuRef.current?.querySelectorAll('[role="menuitem"]')[index] as HTMLElement;
@@ -37,9 +42,19 @@ export default function ContextMenu({
   };
 
   useEffect(() => {
+    if (lastFocusedElement.current) {
+      return;
+    }
+    
+    lastFocusedElement.current = document.activeElement as HTMLElement;
+
+    if (!trapFocus) {
+      return;
+    }
+
     // Focus the first menu item after the menu renders
     focusItem(0);
-  }, []);
+  }, [trapFocus]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -51,6 +66,13 @@ export default function ContextMenu({
 
         case 'Escape':
           event.preventDefault();
+
+          // Restore focus to the last focused element before closing the menu
+          if (lastFocusedElement.current) {
+            lastFocusedElement.current.focus();
+            lastFocusedElement.current = null; // Clear the reference after focusing
+          }
+
           onClose();
           break;
           

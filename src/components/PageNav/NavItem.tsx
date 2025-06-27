@@ -12,9 +12,11 @@ import ContextMenu from './ContextMenu';
 function ContextMenuTrigger({
   isParentActive,
   onContextMenuOpen,
+  setShouldContextMenuTrapFocus,
 }: {
   isParentActive: boolean;
   onContextMenuOpen: () => void;
+  setShouldContextMenuTrapFocus: (value: boolean) => void;
 }) {
   return (
     <div 
@@ -28,11 +30,13 @@ function ContextMenuTrigger({
       onClick={(e) => {
         e.stopPropagation();
         onContextMenuOpen();
+        setShouldContextMenuTrapFocus(false);
       }}
       onKeyDown={(e) => {
         if (e.key === 'Enter') {
           e.preventDefault();
           onContextMenuOpen();
+          setShouldContextMenuTrapFocus(true);
         }
       }}
     >
@@ -62,6 +66,8 @@ function NavItem({
 }) {
   const [isHovering, setIsHovering] = useState(false);
 
+  const [shouldContextMenuTrapFocus, setShouldContextMenuTrapFocus] = useState(false);
+
   const isContextMenuOnHoverEnabled = useMemo(() => {
     return isFeatureFlagEnabled('contextMenuOnHover', false);
   }, []);
@@ -82,6 +88,7 @@ function NavItem({
 
   const handleContextMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setShouldContextMenuTrapFocus(false);
     onContextMenuOpen();
   };
 
@@ -110,9 +117,15 @@ function NavItem({
     >
       <span className="inline-flex gap-1.5 items-center">{activeIcon} {pageName}</span>
 
-      {shouldShowContextMenu && <ContextMenuTrigger isParentActive={active} onContextMenuOpen={onContextMenuOpen} />}
+      {
+        shouldShowContextMenu && 
+        <ContextMenuTrigger 
+          isParentActive={active} 
+          onContextMenuOpen={onContextMenuOpen} 
+          setShouldContextMenuTrapFocus={setShouldContextMenuTrapFocus}  
+        />}
 
-      {contextMenuOpen && <ContextMenu onClose={onContextMenuClose}/>}
+      {contextMenuOpen && <ContextMenu onClose={onContextMenuClose} trapFocus={shouldContextMenuTrapFocus}/>}
     </button>
    </>
   );
