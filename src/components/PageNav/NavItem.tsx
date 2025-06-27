@@ -1,23 +1,12 @@
 
 import { useMemo, useState } from 'react';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+
 import isFeatureFlagEnabled from '../../utils/feature-flag';
 import Kebab from '../common/icons/Kebab';
-
 import type { Page } from '../FormBuilder';
 import ContextMenu from './ContextMenu';
-
-import {useSortable} from '@dnd-kit/sortable';
-import {CSS} from '@dnd-kit/utilities';
-
-interface PageNavItemProps { 
-  pageId: Page['id']; 
-  icon: React.ReactNode;
-  pageName: Page['name'];
-  active: boolean;
-  onClick: () => void;
-  contextMenuOpen: boolean;
-  onContextMenuOpen: () => void;
-}
 
 
 function ContextMenuTrigger({
@@ -52,7 +41,7 @@ function ContextMenuTrigger({
   );
 }
 
-function PageNavItem({
+function NavItem({
   pageId,
   icon,
   pageName,
@@ -60,7 +49,15 @@ function PageNavItem({
   onClick,
   contextMenuOpen,
   onContextMenuOpen,
-}: PageNavItemProps) {
+}: { 
+  pageId: Page['id']; 
+  icon: React.ReactNode;
+  pageName: Page['name'];
+  active: boolean;
+  onClick: () => void;
+  contextMenuOpen: boolean;
+  onContextMenuOpen: () => void;
+}) {
   const [isHovering, setIsHovering] = useState(false);
 
   const isContextMenuOnHoverEnabled = useMemo(() => {
@@ -99,7 +96,7 @@ function PageNavItem({
       className={
       `
         page-nav-item relative inline-flex items-center px-2.5 py-1.5 leading-4 font-medium capitalize bg-[#9DA4B226] rounded-md hover:bg-[#9DA4B259] border border-solid border-0.5px border-[#E1E1E1] focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-blue-500 text-[#677289] 
-        ${active ? 'bg-white text-fillout-dark hover:bg-white shadow-sm' : ''} 
+        ${active ? 'bg-white text-fillout-dark hover:bg-white shadow-sm' : ''}
         ${isDragging ? 'cursor-move' : 'cursor-pointer'}
         transition-colors duration-100 ease-in-out
       `
@@ -119,4 +116,4 @@ function PageNavItem({
   );
 }
 
-export default PageNavItem;
+export default NavItem;

@@ -6,7 +6,7 @@ describe('App', () => {
   it('Renders correct page in editing mode by default', () => {
     render(<App />);
     
-    expect(screen.getByTestId('page-editor-info')).toHaveTextContent('Editing Page: 1');
+    expect(screen.getByTestId('page-editor-info')).toHaveTextContent('Editing Page: Info');
   });
 
 

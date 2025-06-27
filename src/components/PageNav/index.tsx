@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import type { Page } from '../FormBuilder';
-import PageNavItem from './PageNavItem';
+import NavItem from './NavItem';
 import PlusIcon from '../common/icons/Plus';
 import Button from '../common/Button';
+import NavItemSeparator from './NavItemSeparator';
 
 import './index.css';
 import { 
@@ -25,20 +26,19 @@ import { restrictToHorizontalAxis } from '@dnd-kit/modifiers';
 
 interface PageNavProps {  
   pages: Page[];
-  currentPageId: Page['id'] | null; // todo: rename to activePageId
-  onPageSelection: (pageId: Page['id'] | null) => void;
+  activePageId: Page['id'] | null; // todo: rename to activePageId
+  onNavItemClicked: (pageId: Page['id'] | null) => void;
   onPageAdd: (pageIndex?: number) => void;
-  onPageDragEnd: (activePageId: Page['id'], overPageId: Page['id']) => void;
+  onPageDragEnd: (draggedPageId: Page['id'], overPageId: Page['id']) => void;
 }
 function PageNav({
   pages,
-  currentPageId,
-  onPageSelection,
+  activePageId,
+  onNavItemClicked,
   onPageAdd,
   onPageDragEnd
 }: PageNavProps) {
-  const [openContextMenu, setOpenContextMenu] = useState<Page['id'] | null>(null);
-  const [ hoveredPageIndex, setHoveredPageIndex ] = useState<number | null>(null);
+  const [ openContextMenu, setOpenContextMenu ] = useState<Page['id'] | null>(null);
   const [ draggedPageId, setDraggedPageId ] = useState<Page['id'] | null>(null);
 
   const onAddPageClick = (pageIndex?: number) => {
@@ -46,11 +46,11 @@ function PageNav({
   }
 
   const handlePageSelection = (pageId: Page['id']) => {
-    if (currentPageId === pageId) {
+    if (activePageId === pageId) {
       return;
     } 
     
-    onPageSelection(pageId);
+    onNavItemClicked(pageId);
     setOpenContextMenu(null); // Close context menu on page selection
   }
 
@@ -62,19 +62,7 @@ function PageNav({
     }
   }
 
-  const handleMouseHoverOnSeparator = (index: number) => {
-    // Skip if dragging
-    if (draggedPageId) {
-      return;
-    }
-
-    // Prevent hover effect on the last page separator, it has an explicit add button
-    if (index === pages.length - 1) {
-      return;
-    }
-    setHoveredPageIndex(index);
-  }
-
+  // Close context menu on click outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (openContextMenu) {
@@ -158,46 +146,23 @@ function PageNav({
           {
             pages.map((page, index) => {
               return (
-                  <span key={page.id} className={`flex items-center ${draggedPageId && page.id !== draggedPageId ? 'pointer-events-none' : ''}`}>
-                    <PageNavItem
-                      pageId={page.id}
-                      icon={page.icon}
-                      onClick={() => handlePageSelection(page.id)}
-                      active={page.id === currentPageId}
-                      pageName={page.name}
-                      contextMenuOpen={openContextMenu === page.id}
-                      onContextMenuOpen={() => handleContextMenuOpen(page.id)}
-                    />
-                    <>
-                      <span
-                        className={
-                          `flex items-center page-separator-container relative 
-                          ${hoveredPageIndex === index ? 'page-separator-container-on-hover' : ''}
-                          ${draggedPageId && page.id === draggedPageId ? 'pointer-events-none' : ''}
-                        `}
-                        onMouseEnter={() => handleMouseHoverOnSeparator(index)}
-                        onMouseLeave={() => setHoveredPageIndex(null)}
-                      >
-                        <hr 
-                          className='page-separator'
-                          aria-hidden="true"
-                          data-testid={`page-separator-${index}`}
-                        />
-                        { 
-                          index < pages.length - 1 &&
-                          hoveredPageIndex === index &&
-                          <button 
-                            className="absolute top-1/2 -translate-y-1/2 right-1/2 translate-x-1/2 flex justify-center items-center w-4 h-4 bg-white hover:bg-gray-100 border border-solid border-0.5px border-[#E1E1E1] focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-blue-500 cursor-pointer shadow-sm rounded-[50%]" 
-                            onClick={() => onAddPageClick(index+1)}
-                            aria-label="Add new page between pages"
-                            data-testid={`add-page-button-${index}`}
-                            title="Add new page between pages"
-                          >
-                            <PlusIcon className="w-[8px] h-[8px]"/>
-                          </button>
-                        }
-                      </span>
-                    </>
+                <span key={page.id} className={`flex items-center ${draggedPageId && page.id !== draggedPageId ? 'pointer-events-none' : ''}`}>
+                  <NavItem
+                    pageId={page.id}
+                    icon={page.icon}
+                    onClick={() => handlePageSelection(page.id)}
+                    active={page.id === activePageId}
+                    pageName={page.name}
+                    contextMenuOpen={openContextMenu === page.id}
+                    onContextMenuOpen={() => handleContextMenuOpen(page.id)}
+                  />
+                  <NavItemSeparator
+                    pageId={page.id}
+                    index={index}
+                    totalPages={pages.length}
+                    onAddPageClick={onAddPageClick}
+                    draggedPageId={draggedPageId}
+                  />
                 </span>
               );
             })

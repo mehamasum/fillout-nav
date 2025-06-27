@@ -38,7 +38,7 @@ const DEFAULT_PAGES: Page[] = [
 function FormBuilder() {
   const [pages, setPages] = useState<Page[]>(DEFAULT_PAGES);
   
-  const [currentPageId, setCurrentPageId] = useState<Page['id'] | null>(DEFAULT_PAGES[0].id);
+  const [activePageId, setActivePageId] = useState<Page['id'] | null>(DEFAULT_PAGES[0].id);
 
   const onPageAdd = (pageIndex?: number) => {
     const pageName = `Page ${pages.length + 1}`; // Default name for new pages
@@ -59,11 +59,11 @@ function FormBuilder() {
       setPages(updatedPages);
     }
 
-    setCurrentPageId(newPage.id);
+    setActivePageId(newPage.id);
   }
 
-  const onPageDragEnd = (activePageId: Page['id'], overPageId: Page['id']) => {
-    const activePageIndex = pages.findIndex(page => page.id === activePageId);
+  const onPageDragEnd = (draggedPageId: Page['id'], overPageId: Page['id']) => {
+    const activePageIndex = pages.findIndex(page => page.id === draggedPageId);
     const overPageIndex = pages.findIndex(page => page.id === overPageId);
 
     if (activePageIndex !== -1 && overPageIndex !== -1) {
@@ -74,15 +74,17 @@ function FormBuilder() {
     }
   }
 
+  const activePage = pages.find(page => page.id === activePageId);
+
   return (
     <main className="h-full w-full font-inter text-sm font-medium text-fillout-dark">
       <div className="h-[calc(100vh-72px)]">
-        <PageEditor currentPageId={currentPageId}/>
+        <PageEditor page={activePage}/>
       </div>
       <nav className="h-[72px] flex align-center">
         <PageNav
-          currentPageId={currentPageId}
-          onPageSelection={setCurrentPageId}
+          activePageId={activePageId}
+          onNavItemClicked={setActivePageId}
           pages={pages}
           onPageAdd={onPageAdd}
           onPageDragEnd={onPageDragEnd}

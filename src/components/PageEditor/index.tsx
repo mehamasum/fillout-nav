@@ -1,16 +1,14 @@
 import type { Page } from '../FormBuilder';
 
-interface PageEditorProps {
-  currentPageId: Page['id'] | null;
-}
-
 function PageEditor({
-  currentPageId
-}: PageEditorProps) {
+  page
+}: {
+  page?: Page;
+}) {
   return (
     <section className="h-full p-4 bg-gray-100">
       <p className="text-md text-gray-600 bg-white p-4 rounded" data-testid="page-editor-info">
-        {currentPageId ? `Editing Page: ${currentPageId}` : 'No page selected'}
+        {page ? `Editing Page: ${page.name}` : 'No page selected'}
       </p>
     </section>
   );
