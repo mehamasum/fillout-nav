@@ -152,6 +152,7 @@ function PageNav({
                     pageName={page.name}
                     contextMenuOpen={openContextMenu === page.id}
                     onContextMenuOpen={() => handleContextMenuOpen(page.id)}
+                    onContextMenuClose={() => setOpenContextMenu(null)}
                   />
                   <NavItemSeparator
                     pageId={page.id}

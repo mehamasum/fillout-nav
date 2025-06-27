@@ -49,6 +49,7 @@ function NavItem({
   onClick,
   contextMenuOpen,
   onContextMenuOpen,
+  onContextMenuClose,
 }: { 
   pageId: Page['id']; 
   icon: React.ReactNode;
@@ -57,6 +58,7 @@ function NavItem({
   onClick: () => void;
   contextMenuOpen: boolean;
   onContextMenuOpen: () => void;
+  onContextMenuClose: () => void;
 }) {
   const [isHovering, setIsHovering] = useState(false);
 
@@ -110,7 +112,7 @@ function NavItem({
 
       {shouldShowContextMenu && <ContextMenuTrigger isParentActive={active} onContextMenuOpen={onContextMenuOpen} />}
 
-      <ContextMenu open={contextMenuOpen}/>
+      {contextMenuOpen && <ContextMenu onClose={onContextMenuClose}/>}
     </button>
    </>
   );

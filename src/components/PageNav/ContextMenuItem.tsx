@@ -12,14 +12,14 @@ export default function ContextMenuItem({
   return (
     <div
       role="menuitem"
-      tabIndex={0}
+      tabIndex={-1}
       onKeyDown={(e) => {
         if (e.key === 'Enter') {
           e.preventDefault();
           onClick();
         }
       }}
-      className={`cursor-pointer flex items-center px-2 py-1.5 mb-0.5 text-sm capitalize rounded-sm focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-fillout-blue-600 ${danger ? "hover:bg-red-100": "hover:bg-gray-100"}`}
+      className={`cursor-pointer flex items-center px-2 py-1.5 mb-0.5 text-sm capitalize rounded-sm focus:outline-none focus:ring-0 ${danger ? "hover:bg-red-100 focus:bg-red-100": "hover:bg-gray-100 focus:bg-gray-100"}`}
       onClick={(e) => {
         e.stopPropagation();
         onClick();
