@@ -77,7 +77,7 @@ function FormBuilder() {
   const activePage = pages.find(page => page.id === activePageId);
 
   return (
-    <main className="h-full w-full font-inter text-sm font-medium text-fillout-dark">
+    <main className="h-full w-full font-inter text-sm font-medium text-fillout-zinc-900">
       <div className="h-[calc(100vh-72px)]">
         <PageEditor page={activePage}/>
       </div>

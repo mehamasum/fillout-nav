@@ -5,7 +5,6 @@ import PlusIcon from '../common/icons/Plus';
 import Button from '../common/Button';
 import NavItemSeparator from './NavItemSeparator';
 
-import './index.css';
 import { 
   DndContext, 
   type DragEndEvent, 
@@ -23,21 +22,19 @@ import {
 } from '@dnd-kit/sortable';
 import { restrictToHorizontalAxis } from '@dnd-kit/modifiers';
 
-
-interface PageNavProps {  
-  pages: Page[];
-  activePageId: Page['id'] | null; // todo: rename to activePageId
-  onNavItemClicked: (pageId: Page['id'] | null) => void;
-  onPageAdd: (pageIndex?: number) => void;
-  onPageDragEnd: (draggedPageId: Page['id'], overPageId: Page['id']) => void;
-}
 function PageNav({
   pages,
   activePageId,
   onNavItemClicked,
   onPageAdd,
   onPageDragEnd
-}: PageNavProps) {
+}: {  
+  pages: Page[];
+  activePageId: Page['id'] | null; // todo: rename to activePageId
+  onNavItemClicked: (pageId: Page['id'] | null) => void;
+  onPageAdd: (pageIndex?: number) => void;
+  onPageDragEnd: (draggedPageId: Page['id'], overPageId: Page['id']) => void;
+}) {
   const [ openContextMenu, setOpenContextMenu ] = useState<Page['id'] | null>(null);
   const [ draggedPageId, setDraggedPageId ] = useState<Page['id'] | null>(null);
 

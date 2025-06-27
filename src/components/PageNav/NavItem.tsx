@@ -22,7 +22,7 @@ function ContextMenuTrigger({
       tabIndex={0}
       aria-label='Open context menu'
       className={`
-        context-menu-trigger ml-2 cursor-pointer focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-blue-500 rounded
+        context-menu-trigger ml-2 cursor-pointer focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-fillout-blue-600 rounded
         ${isParentActive ? 'hover:bg-gray-100' : 'hover:bg-[#9DA4B259]'}
       `}
       onClick={(e) => {
@@ -83,7 +83,7 @@ function NavItem({
     onContextMenuOpen();
   };
 
-  const activeIcon = active ? <span className="text-fillout-yellow">{icon}</span> : icon;
+  const activeIcon = active ? <span className="text-fillout-amber-500">{icon}</span> : icon;
 
   const shouldShowContextMenu = active || (isContextMenuOnHoverEnabled && isHovering && !active);
 
@@ -95,8 +95,8 @@ function NavItem({
       onContextMenu={handleContextMenu}
       className={
       `
-        page-nav-item relative inline-flex items-center px-2.5 py-1.5 leading-4 font-medium capitalize bg-[#9DA4B226] rounded-md hover:bg-[#9DA4B259] border border-solid border-0.5px border-[#E1E1E1] focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-blue-500 text-[#677289] 
-        ${active ? 'bg-white text-fillout-dark hover:bg-white shadow-sm' : ''}
+        page-nav-item relative inline-flex items-center px-2.5 py-1.5 leading-4 font-medium capitalize bg-[#9DA4B226] rounded-md hover:bg-[#9DA4B259] border border-solid border-0.5px border-[#E1E1E1] focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-fillout-blue-600 text-[#677289] 
+        ${active ? 'bg-white text-fillout-zinc-900 hover:bg-white shadow-sm' : ''}
         ${isDragging ? 'cursor-move' : 'cursor-pointer'}
         transition-colors duration-100 ease-in-out
       `
@@ -110,7 +110,7 @@ function NavItem({
 
       {shouldShowContextMenu && <ContextMenuTrigger isParentActive={active} onContextMenuOpen={onContextMenuOpen} />}
 
-      { contextMenuOpen && <ContextMenu/> }
+      <ContextMenu open={contextMenuOpen}/>
     </button>
    </>
   );

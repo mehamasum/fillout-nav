@@ -7,20 +7,29 @@ import TrashcanIcon from '../common/icons/Trashcan';
 import ContextMenuItem from './ContextMenuItem';
 
 
-export default function ContextMenu() {
+export default function ContextMenu({
+  open
+}: {
+  open: boolean
+}) {
   return (
     <div 
-      className="context-menu-container absolute top-auto bottom-full left-0 z-100 w-60 mb-4 origin-bottom-left bg-white shadow-lg border border-gray-200 rounded-lg"
+      className={
+        `context-menu-container absolute top-auto bottom-full left-0 z-100 w-60 mb-2.5 origin-bottom-left bg-white shadow-lg border border-gray-200 rounded-lg
+        ${open ? 'scale-100 opacity-100' : 'scale-50 opacity-0 pointer-events-none'}
+        transition-all duration-150 ease-in-out
+      `}
       role="menu"
       aria-label="Page settings"
+      data-testid="context-menu"
     >
-      <div className="flex items-center p-3 text-base capitalize bg-fillout-gray-50 cursor-default rounded-t-lg">
+      <div className="flex items-center px-3 py-2 text-base capitalize bg-fillout-gray-50 cursor-default rounded-t-lg">
         <span className="font-bold" role="heading" aria-level={3}>Settings</span>
       </div>
 
       <hr className="border-gray-200" aria-hidden="true"/>
       
-      <div className="p-2" role="group" aria-label="Page actions">
+      <div className="p-1.5" role="group" aria-label="Page actions" data-testid="context-menu-items">
         <ContextMenuItem
           icon={<FlagIcon className="text-fillout-gray-400"/>}
           text="Set as first page"
@@ -45,7 +54,7 @@ export default function ContextMenu() {
           onClick={() => console.log('Duplicate clicked')} 
         />
 
-        <hr className="border-gray-200 my-2" aria-hidden="true"/>
+        <hr className="border-gray-200 my-1.5" aria-hidden="true"/>
 
         <ContextMenuItem
           icon={<TrashcanIcon className="text-fillout-gray-400"/>}
