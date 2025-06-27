@@ -58,6 +58,9 @@ describe('FormBuilder', () => {
     });
 
     it('Adds a new page in between two pages', async () => {
+      const delay = (ms) => {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
       render(<FormBuilder />);
 
       let navItems = screen.getAllByTestId('page-nav-item');
@@ -67,7 +70,11 @@ describe('FormBuilder', () => {
 
       const user = userEvent.setup();
       const hoverTarget = screen.getByTestId('page-separator-0'); // Hover over the separator between first and second pages
-      await user.hover(hoverTarget);
+      
+      await act(async () => {
+        await user.hover(hoverTarget);
+        await delay(300); // Wait for the hover effect to take place  
+      });
 
       const addPageButton = screen.getByTestId('add-page-button-0');
       expect(addPageButton).toBeInTheDocument();
@@ -106,11 +113,11 @@ describe('FormBuilder', () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByTestId("context-menu")).toBeInTheDocument();
+      const contextMenu = screen.getAllByTestId("context-menu")[1];
+      expect(contextMenu).toHaveClass("opacity-100"); // Check if context menu is visible
     });
 
-    const contextMenuItems = screen.getByTestId("context-menu-items");
-    expect(contextMenuItems).toBeInTheDocument();
+    const contextMenuItems = screen.getAllByTestId("context-menu-items")[1];
     expect(contextMenuItems).toHaveTextContent('Set as first page');
     expect(contextMenuItems).toHaveTextContent('Rename');
     expect(contextMenuItems).toHaveTextContent('Copy');
