@@ -1,18 +1,22 @@
-export default function Button({
+import type { ReactNode } from 'react';
+
+interface ButtonProps {
+  icon: ReactNode;
+  text: string | ReactNode;
+  onClick: () => void;
+  ariaLabel?: string;
+  disabled?: boolean;
+}
+
+function Button({
   icon,
   text,
   onClick,
   ariaLabel = 'Button',
   disabled = false
-}: {
-  icon: React.ReactNode,
-  text: string | React.ReactNode,
-  onClick: () => void,
-  ariaLabel?: string,
-  disabled?: boolean
-}){
+}: ButtonProps) {
   return (
-    <button 
+    <button
       className="cursor-pointer inline-flex items-center px-3 py-2 text-black leading-4 font-medium capitalize bg-white rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed border border-solid border-0.5px border-[#E1E1E1] focus:outline-none focus:ring-1 focus:ring-offset-0 focus:ring-fillout-blue-600 shadow-sm transition-all duration-200"
       onClick={onClick}
       aria-label={ariaLabel}
@@ -23,4 +27,6 @@ export default function Button({
       <span className="inline-flex gap-2 items-center">{icon} {text}</span>
     </button>
   );
-};
+}
+
+export default Button;

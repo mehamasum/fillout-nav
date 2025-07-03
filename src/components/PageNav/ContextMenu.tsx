@@ -10,28 +10,27 @@ import ContextMenuItem from './ContextMenuItem';
 
 
 const CONTEXT_MENU_ITEMS = [
-    { icon: <FlagIcon className="text-fillout-gray-400"/>, text: 'Set as first page', action: () => console.log('Set as first page clicked') },
-    { icon: <PencilIcon className="text-fillout-gray-400"/>, text: 'Rename', action: () => console.log('Rename clicked') },
-    { icon: <ClipboardIcon className="text-fillout-gray-400"/>, text: 'Copy', action: () => console.log('Copy clicked') },
-    { icon: <DuplicateIcon className="text-fillout-gray-400"/>, text: 'Duplicate', action: () => console.log('Duplicate clicked') },
-    { divider: true },
-    { icon: <TrashcanIcon className="text-fillout-gray-400"/>, text: 'Delete', action: () => console.log('Delete clicked'), danger: true },
+  { icon: <FlagIcon className="text-fillout-gray-400" />, text: 'Set as first page', action: () => console.log('Set as first page clicked') },
+  { icon: <PencilIcon className="text-fillout-gray-400" />, text: 'Rename', action: () => console.log('Rename clicked') },
+  { icon: <ClipboardIcon className="text-fillout-gray-400" />, text: 'Copy', action: () => console.log('Copy clicked') },
+  { icon: <DuplicateIcon className="text-fillout-gray-400" />, text: 'Duplicate', action: () => console.log('Duplicate clicked') },
+  { divider: true },
+  { icon: <TrashcanIcon className="text-fillout-gray-400" />, text: 'Delete', action: () => console.log('Delete clicked'), danger: true },
 ];
 
-const menuLength =  CONTEXT_MENU_ITEMS.length;
-
-export default function ContextMenu({
-  trapFocus = false,
-  onClose,
-}: {
+interface ContextMenuProps {
   trapFocus?: boolean;
   onClose: () => void;
-}) {
+}
+
+function ContextMenu({
+  trapFocus = false,
+  onClose,
+}: ContextMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null);
   /* eslint-disable @typescript-eslint/no-unused-vars */
   // @ts-expect-error We are not using this state directly
-  const [focusedIndex, setFocusedIndex] = useState(0); 
-
+  const [focusedIndex, setFocusedIndex] = useState(0);
   const lastFocusedElement = useRef<HTMLElement | null>(null);
 
   const focusItem = (index: number) => {
@@ -42,44 +41,34 @@ export default function ContextMenu({
   };
 
   useEffect(() => {
-    if (lastFocusedElement.current) {
-      return;
+    if (!lastFocusedElement.current) {
+      lastFocusedElement.current = document.activeElement as HTMLElement;
     }
-    
-    lastFocusedElement.current = document.activeElement as HTMLElement;
-
-    if (!trapFocus) {
-      return;
+    if (trapFocus) {
+      focusItem(0);
     }
-
-    // Focus the first menu item after the menu renders
-    focusItem(0);
   }, [trapFocus]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       switch (event.key) {
         case 'Tab':
-          // Prevent default tab behavior to keep focus within the context menu
           event.preventDefault();
-          break; 
+          break;
 
         case 'Escape':
           event.preventDefault();
-
-          // Restore focus to the last focused element before closing the menu
           if (lastFocusedElement.current) {
             lastFocusedElement.current.focus();
-            lastFocusedElement.current = null; // Clear the reference after focusing
+            lastFocusedElement.current = null;
           }
-
           onClose();
           break;
           
         case 'ArrowDown':
           event.preventDefault();
           setFocusedIndex(prevIndex => {
-            const nextIndex = prevIndex < menuLength - 1 ? prevIndex + 1 : 0;
+            const nextIndex = prevIndex < CONTEXT_MENU_ITEMS.length - 1 ? prevIndex + 1 : 0;
             focusItem(nextIndex);
             return nextIndex;
           });
@@ -88,37 +77,27 @@ export default function ContextMenu({
         case 'ArrowUp':
           event.preventDefault();
           setFocusedIndex(prevIndex => {
-            const nextIndex = prevIndex > 0 ? prevIndex - 1 : menuLength - 1;
+            const nextIndex = prevIndex > 0 ? prevIndex - 1 : CONTEXT_MENU_ITEMS.length - 1;
             focusItem(nextIndex);
             return nextIndex;
           });
           break;
       }
     };
-
     document.addEventListener('keydown', handleKeyDown);
-
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, [onClose]);
 
-  // Close context menu on click outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const element = event.target as HTMLElement;
-
-      // Skip if the click is to trigger the context menu
-      if (element.closest('.context-menu-trigger')) {
-        return;
-      }
-
-      // Close the context menu if the click is outside of it's container
+      if (element.closest('.context-menu-trigger')) return;
       if (!element.closest('.context-menu-container')) {
         onClose();
       }
     };
-
     document.addEventListener('click', handleClickOutside);
     return () => {
       document.removeEventListener('click', handleClickOutside);
@@ -126,11 +105,9 @@ export default function ContextMenu({
   }, [onClose]);
 
   return (
-    <div 
+    <div
       ref={menuRef}
-      className={
-        `context-menu-container absolute top-auto bottom-full left-0 z-100 w-60 mb-2.5 origin-bottom-left bg-white shadow-lg border border-gray-200 rounded-lg
-      `}
+      className="context-menu-container absolute top-auto bottom-full left-0 z-100 w-60 mb-2.5 origin-bottom-left bg-white shadow-lg border border-gray-200 rounded-lg"
       role="menu"
       aria-label="Page settings"
       data-testid="context-menu"
@@ -153,11 +130,7 @@ export default function ContextMenu({
               key={index}
               icon={item.icon}
               text={item.text as string}
-              onClick={() => {
-                if (item.action) {
-                  item.action();
-                }
-              }}
+              onClick={() => item.action && item.action()}
               danger={item.danger}
             />
           );
@@ -166,4 +139,6 @@ export default function ContextMenu({
       </div>
     </div>
   );
-};
+}
+
+export default ContextMenu;
