@@ -108,6 +108,7 @@ function NavItem({
         ${active ? 'bg-white text-fillout-zinc-900 hover:bg-white shadow-sm' : ''}
         ${isDragging ? 'cursor-move' : 'cursor-pointer'}
         transition-colors duration-100 ease-in-out
+        touch-none
       `
       }
       data-testid="page-nav-item"

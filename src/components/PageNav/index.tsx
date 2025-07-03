@@ -12,8 +12,6 @@ import {
   useSensors,
   KeyboardSensor,
   PointerSensor,
-  MouseSensor,
-  TouchSensor,
   type DragStartEvent,
 } from '@dnd-kit/core';
 import { 
@@ -87,8 +85,6 @@ function PageNav({
       distance: 0.01
     }
   })
-  const mouseSensor = useSensor(MouseSensor);
-  const touchSensor = useSensor(TouchSensor);
   const keyboardSensor = useSensor(KeyboardSensor, {
     keyboardCodes: {
       start: ['Space'],
@@ -98,8 +94,6 @@ function PageNav({
   });
 
   const sensors = useSensors(
-    mouseSensor,
-    touchSensor,
     keyboardSensor,
     pointerSensor
   );
